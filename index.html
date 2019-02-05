@@ -3,7 +3,11 @@
 	<head>
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="eshop.css">
-		<script type="text/css" src="eshop.js"></script>
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+		 crossorigin="anonymous">
+		<script src="jquery.js"></script>
+		<script src="eshop.js"></script>
+		<title>Jízdenka</title>
 	</head>
 
 	<body>
@@ -11,21 +15,23 @@
 			<section>
 				<h1>1Jízdenka</h1>
 			</section>
-			<form id="searchForm">
-				<section id="searchLocations">
-					<input type="text" name="origin" id="search-origin" placeholder="Odkud">
-					<input type="text" name="destination" id="search-destination" placeholder="Kam">
-				</section>
-				<section id="searchTimes">
-
-				</section>
-			</form>
 		</header>
 		<main>
-			<div id="search-results"></div>
-			<div id="fare-options"></div>
-			<div id="purchase"></div>
-			<div id="confirmation"></div>
+			<form id="searchForm">
+				<div id="searchLocations">
+					<input type="text" name="origin" id="search-origin" placeholder="Odkud">
+					<input type="text" name="destination" id="search-destination" placeholder="Kam">
+				</div>>
+				<div id="searchTimes">
+					<input type="radio" name="searchTime-preset" id="st-preset-today" checked><label for="st-preset-today">dnes</label>
+					<input type="radio" name="searchTime-preset" id="st-preset-tomorrow"><label for="st-preset-tomorrow">zítra</label>
+					<input type="radio" name="searchTime-preset" id="st-preset-picker"><label for="st-preset-picker"><i class="fa fa-calendar-alt"></i></label>
+				</div>
+			</form>
+			<section id="search-results"></section>
+			<section id="fare-options"></section>
+			<section id="purchase"></section>
+			<section id="confirmation"></section>>
 		</main>
 		<footer>
 		</footer>
