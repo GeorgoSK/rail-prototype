@@ -12,6 +12,15 @@ function calculatePrice(dist, cls = 2) {
 	return (cls == 1) ? fare * 1.3 : fare;
 }
 
+function typeIn(text, field) {
+	setTimeout(() => {
+		if (text.length) {
+			field.val(field.val() + text[0])
+			typeIn(text.slice(1), field);
+		}
+	}, 80);
+}
+
 $(document).ready(() => {
 	
 	var currentDate = new Date();
@@ -42,9 +51,9 @@ $(document).ready(() => {
 
 	$('.search-submit').on('click', function(e) {
 		e.preventDefault();
+		$('#search h1').slideUp();
+		$('#search').addClass('compact');
 		$('#search-results').slideDown();
-		$('header').slideUp();
-		$('#searchForm').addClass('compact');
 		updateFares(1);
 		$('#search-results h2 time').text(currentDate.toLocaleDateString('cs-CZ', {day: 'numeric', month: 'long', year: 'numeric'}));
 	});
@@ -54,14 +63,12 @@ $(document).ready(() => {
 		$(this).prop('id', 'selected-result')
 		var detailToggle = $(this).children('.detail-toggle').first();
 		if (!detailToggle.prop('checked')) {
-			$('#search-results article').removeClass('minimal');
 			$('#search-results article').addClass('minimal');
 			$(this).removeClass('minimal').addClass('detailed');
 			$('#travelClass-second').prop('checked', true);
 			$(this).children('.price').after($('#classes-fares'));
-			detailToggle.prop('checked', !detailToggle.prop('checked'));
+			detailToggle.prop('checked', true);
 			updateFares(paxNumber);
-			$('#pax-section').insertBefore('#classes-fares');
 		}
 	})
 	
@@ -72,8 +79,8 @@ $(document).ready(() => {
 	$('#result-continue').on('click', function(e) {
 		e.preventDefault();
 		e.stopPropagation();
-		$('#search-results h2').hide();
-		$('#pax-section').hide();
+		$('#search-results h2').slideUp();
+		$('#pax-section').slideUp();
 		$('#search-results article.minimal').slideUp();
 		var selectedPrice = $('#selected-result').find('input[name=travelClass]:checked').next('label').html();
 		var selectedClass = parseInt($('#selected-result').find('input[name=travelClass]:checked').val());
@@ -101,9 +108,16 @@ $(document).ready(() => {
 		});
 	})
 
+	var origin = 'Praha';
+	var destination = 'Hradec Králové'
+
+	typeIn(origin, $('#search-origin'));
+	setTimeout(() => {
+		typeIn(destination, $('#search-destination'));
+		$('.search-submit').click();
+		$('#search-results article')[1].click();
+	}, 1000);
 	/*
-	$('.search-submit').click();
-	$('#search-results article')[1].click();
 	$('#result-continue').click();
 	*/
 });

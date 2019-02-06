@@ -14,13 +14,22 @@
 	<body>
 		<header>
 			<nav>
-
+				<section>
+				<ul class="nav-tickets">
+					<li class="nav-selected">Spojení a jízdenka</li>
+					<li>Pravidelné dojíždění</li>
+					<li>Neomezená jízdenka</li>
+				</ul>
+				<ul class="nav-info">
+					<li>Jak to funguje</li>
+					<li>Kontakt a pomoc</li>
+				</ul>
+				</section>
 			</nav>
-			<section>
-				<h1><span class="logo-upper">1</span><span class="logo-lower">J</span>ízdenka</h1>
-			</section>
 		</header>
 		<main>
+			<div id="search">
+			<h1><span class="logo-upper">1</span><span class="logo-lower">J</span>ízdenka</h1>
 			<form id="searchForm">
 				<div id="searchLocations">
 					<input type="text" name="origin" id="search-origin" placeholder="Odkud" list="places">
@@ -39,7 +48,19 @@
 					<input type="number" size="2" min="0" max="59" name="searchTime-minute" id="search-minute">
 					<a href="#search-results" class="search-submit">Najít spojení</a>
 				</div>
+				<div id="searchCalendar">
+
+				</div>
+				<div id="search-suggestions">
+					<ul>
+						<li data-origin="Praha" data-destination="Hradec Králové">Praha – Hradec Králové</li>
+						<li data-origin="Benešov u Prahy" data-destination="Říčany">Benešov u Prahy – Říčany</li>
+						<li data-origin="Pardubice" data-destination="Olomouc">Pardubice – Olomouc</li>
+					</ul>
+				</div>
 			</form>
+			</div>
+
 			<section id="search-results">
 				<div id="search-options">
 					<div id="search-filters">
@@ -179,17 +200,21 @@
 				</article>
 
 				<div id="classes-fares" hidden>
+					<aside>
+					<p>Flexibilní jízdenka</p>
+					<ul>
+						<li>platí na všechny spoje na této nebo kratší trase <span class="validity-distance"></span></li>
+						<li>platí od <span class="validity-startdate">6. 2. 2019 0:00</span> až do <span class="validity-enddate">7. 2. 2019 6:00</span></li>
+						<li>lze bezplatně vrátit do <span class="cancellation-enddate">5. 2. 2019 23:59</span></li>
+						<li>místenku snadno vyměníte až do 15 minut před odjezdem</li>
+					</ul>
+					</aside>
 					<div id="class-selection">
 						<div class="travel-class">
 							<div>
 								<input type="radio" name="travelClass" id="travelClass-second" value="2">
 								<label for="travelClass-second">2. třída <span data-travelClass="2" class="amount"></span></label>
-								<ul>
-									<li>platí na všechny spoje na této nebo kratší trase <span class="validity-distance"></span></li>
-									<li>platí od <span class="validity-startdate">6. 2. 2019 0:00</span> až do <span class="validity-enddate">7. 2. 2019 6:00</span></li>
-									<li>lze bezplatně vrátit do <span class="cancellation-enddate">5. 2. 2019 23:59</span></li>
-									<li>místenku snadno vyměníte až do 15 minut před odjezdem</li>
-								</ul>
+								
 							</div>
 						</div>
 						<div class="travel-class">
@@ -197,10 +222,8 @@
 								<input type="radio" name="travelClass" id="travelClass-first" value="1">
 								<label for="travelClass-first">1. třída <span id="first-class" data-travelClass="1" class="amount"></span></label>
 								<ul>
-									<li>platnost a storno podmínky jako v 2. třídě</li>
 									<li>vyšší komfort a víc osobního prostoru</li>
-									<li>voda a občerstvení v ceně</li>
-									<li>denní tisk zdarma</li>
+									<li>voda, občerstvení a denní tisk v ceně</li>
 								</ul>
 							</div>
 						</div>

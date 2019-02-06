@@ -1,6 +1,6 @@
 // out: eshop.css, sourceMap: true
 
-@header-bg: rgb(16,32,96);
+@header-bg: rgb(0,12,36);
 @interactive: rgb(0,190,240);
 @white: rgb(255,255,255);
 @accent-bg-light: rgb(200,206,212);
@@ -25,48 +25,35 @@ a {
 	color: inherit;
 }
 
-@header-img-size: 24em;
-header:before {
-	display: block;
-	position: relative;
-	content: "";
-	height: @header-img-size;
-	background-image: url('assets/header-bg-2.jpg');
-	background-size: cover;
-	background-position: 0 80%;
-	margin-bottom: -@header-img-size;
-	z-index: -1;
-}
 header {
-	margin: 0;
-	background-color: fadeout(@header-bg, 30%);
-	padding-bottom: 1em;
-	z-index: 1;
 	nav {
 		background-color: @white;
-		height: 2em;
+		section {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-end;
+			width: 960px;
+			margin: auto;
+		}
+		ul {
+			.inline-list;
+			margin: 1em 0 0 1em;
+			li {
+				.button-style;
+				padding-bottom: 0.5em;
+				margin: 0 0.5em;
+				font-weight: 400;
+				color: @header-bg;
+				border-bottom: 3px solid transparent;
+				&.nav-selected {
+					border-color: @header-bg;
+				}
+				&:hover {
+					border-color: @interactive;
+				}
+			}
+		}
 	}
-	h1 {
-		width: 960px;
-		margin: 1em auto;
-		font-size: 3em;
-		font-weight: 100;
-		color: @white;
-		text-shadow: 2px 2px 2px rgba(0,0,0,0.5);
-		position: relative;
-		.logo-upper, .logo-lower {
-			position: relative;
-		}
-		.logo-upper {
-			top: -0.3em;
-		}
-		.logo-lower {
-			top: 0.3em;
-			left: -33px;
-			margin-right: -0.7em;
-		}
-	}
-
 }
 
 main {
@@ -78,86 +65,136 @@ main {
 	}
 }
 
-#searchForm {
-	background-color: fadeout(@header-bg, 30%);
-	padding: 1em 0 2em 0;
-	text-align: center;
-
-	div {
-		width: 960px;
-		max-width: 100vw;
-		margin: 0 auto;
+#search {
+	padding: 2em 0;
+	background-image: linear-gradient(to bottom, fadeout(@header-bg,25%), fadeout(@header-bg,8%)), url('assets/header-bg-2.jpg');
+	background-size: cover;
+	background-position: 0 80%;
+	h1 {
+		margin: 1em auto;
+		text-align: center;
+		font-size: 4em;
+		font-weight: 100;
+		color: @white;
+		text-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+		.logo-upper, .logo-lower {
+			position: relative;
+		}
+		.logo-upper {
+			top: -0.35em;
+		}
+		.logo-lower {
+			top: 0.35em;
+			left: -0.67em;
+			margin-right: -0.7em;
+		}
 	}
-
-	input {
-		font-size: 2em;
-		margin: 0.2em;
-	}
-
-	input[type=radio] {
-		display: none;
-		& + label {
-			.button-style;
+	#searchForm {
+		padding: 1em 0 4em 0;
+		text-align: center;
+	
+		div {
+			width: 960px;
+			max-width: 100vw;
+			margin: 0 auto;
+		}
+	
+		input {
 			font-size: 2em;
-			margin: 0 0.3em;
-			color: @white;
-			transition: color 0.2s ease;
-			i {
-				font-size: 2rem;
+			margin: 0.2em;
+		}
+	
+		input[type=radio] {
+			display: none;
+			& + label {
+				.button-style;
+				font-size: 2em;
+				margin: 0 0.3em;
+				color: @white;
+				transition: color 0.2s ease;
+				i {
+					font-size: 2rem;
+				}
+			}
+	
+			&:checked+label,
+			&+label:hover {
+				color: @interactive;
+				border-bottom: 2px solid @interactive;
 			}
 		}
-
-		&:checked+label,
-		&+label:hover {
-			color: @interactive;
-			border-bottom: 2px solid @interactive;
-		}
-	}
-
-	input[type=number] {
-		background-color: transparent;
-		padding: 0 0.2em;
-		max-width: 2em;
-		border: 1px solid @white;
-		color: @white;
-
-		&::placeholder {
+	
+		input[type=number] {
+			background-color: transparent;
+			padding: 0 0.2em;
+			max-width: 2em;
+			border: 1px solid @white;
 			color: @white;
-		}
-	}
-
-	#searchTimes {
-		margin: 1em auto;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.search-submit {
-		display: inline-block;
-		color: @header-bg;
-		font-weight: 500;
-		background-color: @interactive;
-		margin: 0 1em;
-		padding: 0.5em 1em;
-	}
-
-	&.compact {
-		display: flex;
-		align-items: center;
-		font-size: 1rem;
-		padding: 0.5em 0;
-		.search-submit {
-			background-color: @white;
-			color: @header-bg;
-			transition: all 0.1s ease;
-			&:hover {
-				background-color: @interactive;
+	
+			&::placeholder {
 				color: @white;
 			}
 		}
+	
+		#searchTimes {
+			margin: 1em auto;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	
+		.search-submit {
+			display: inline-block;
+			color: @header-bg;
+			font-weight: 500;
+			background-color: @interactive;
+			margin: 0 1em;
+			padding: 0.5em 1em;
+		}
+	
+		#search-suggestions {
+			.inline-list;
+			margin-top: 4em;
+			li {
+				cursor: pointer;
+				background-color: @white;
+				padding: 0.5em 1em;
+				margin: 0.25em;
+				box-shadow: 1px 1px 2px fadeout(@black, 50%);
+			}
+		}
+	
+	}
+	&.compact {
+		padding: 0.5em 0;
+		font-size: 1rem;
+		#searchForm {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 0;
+			div {
+				width: auto;
+			}
+			.search-submit {
+				background-color: @white;
+				color: @header-bg;
+				transition: all 0.1s ease;
+				&:hover {
+					background-color: @interactive;
+					color: @white;
+				}
+			}
+		}
+		input {
+			font-size: 1rem;
+		}
+		#search-suggestions {
+			display: none;
+		}
 	}
 }
+
 
 #search-options {
 	width: 100%;
@@ -379,8 +416,7 @@ main {
 		.service-details {
 			display: block;
 			ul {
-				list-style-type: none;
-				padding: 0;
+				.inline-list;
 				display: flex;
 				li {
 					margin-right: 0.5em;
@@ -399,12 +435,21 @@ main {
 			display: none;
 		}
 		#pax-section {
-			bottom: 100%;
+			left: 100%;
 		}
 		#classes-fares {
 			flex-basis: 40%;
 			display: flex;
+			background-color: @white;
+			border: 1px solid gray;
+			margin-top: -1em;
 			flex-direction: column;
+			aside {
+				padding: 0.5em;
+				p {
+					margin: 0;
+				}
+			}
 			#class-selection {
 				display: flex;
 			}
@@ -433,6 +478,18 @@ main {
 					border-width: 3px;
 				}
 			}
+			ul {
+				list-style-type: none;
+				font-size: 0.8rem;
+				font-weight: 400;
+				padding-left: 0.2em;
+				li {
+					margin: 0 0.3em 0.3em 0;
+				}
+				span {
+					font-weight: 600;
+				}
+			}
 			#class-confirm {
 				a {
 					display: block;
@@ -448,18 +505,7 @@ main {
 			.price {
 				display: block;
 			}
-			ul {
-				font-size: 0.8rem;
-				font-weight: 400;
-				padding-left: 0.2em;
-				list-style-type: none;
-				li {
-					margin: 0 0.3em 0.3em 0;
-				}
-				span {
-					font-weight: 600;
-				}
-			}
+
 		}
 	}
 	article.minimal {
@@ -528,6 +574,17 @@ main {
 		.seat-unavailable {
 			cursor: not-allowed;
 			border-color: grey;
+		}
+	}
+}
+
+.inline-list {
+	ul {
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+		li {
+			display: inline-block;
 		}
 	}
 }
