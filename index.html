@@ -26,9 +26,114 @@
 					<input type="radio" name="searchTime-preset" id="st-preset-today" checked><label for="st-preset-today">dnes</label>
 					<input type="radio" name="searchTime-preset" id="st-preset-tomorrow"><label for="st-preset-tomorrow">zítra</label>
 					<input type="radio" name="searchTime-preset" id="st-preset-picker"><label for="st-preset-picker"><i class="fa fa-calendar-alt"></i></label>
+					<input type="number" size="2" min="0" max="23" name="searchTime-hour" id="search-hour">
+					<input type="number" size="2" min="0" max="59" name="searchTime-minute" id="search-minute">
 				</div>
 			</form>
-			<section id="search-results"></section>
+			<section id="search-results">
+				<div id="search-options">
+					<div id="search-filters">
+						<input type="checkbox" id="filter-wheelchair"><label for="filter-wheelchair"><i class="fa fa-wheelchair"></i></label>
+						<input type="checkbox" id="filter-bicycle"><label for="filter-bicycle"><i class="fas fa-bicycle"></i></label>
+					</div>
+					<div class="pax">
+						<i class="fa fa-male"></i>
+						<a href="" class="number-decrement" id="pax-minues">&minus;</a>
+						<input type="text" pattern="[\d]+" class="pax-number" data-min="1" size="1" value="1">
+						<a href="" class="number-increment" id="pax-plus">&plus;</a>
+					</div>
+				</div>
+				
+				<article class="result" data-distance="121" data-duration="105" data-transfers="0">
+					<div class="result-header">
+						<span class="result-tag rt-direct">přímé spojení</span>
+						<span class="result-traveltime"><i class="fa fa-stopwatch"></i> 1 h 45 min</span>
+						<span class="result-distance">(121 km)</span>
+					</div>
+					<div class="route-outline">
+						<table>
+							<tr>
+								<td>Praha hl.n. <i class="fa fa-info-circle"></i></td>
+								<td></td>
+								<td><time class="departure">8:06</time></td>
+								<td class="service"><span class="service-badge sb-cd">R 923 Hradečan</span></td>
+							</tr>
+							<tr>
+								<td>Hradec Králové hl.n. <i class="fa fa-info-circle"></i></td>
+								<td><time class="arrival">9:51</time></td>
+								<td></td>
+							</tr>
+						</table>
+					</div>
+					<div class="price">
+						<a href="">flexibilní od <span class="amount"></span></a>
+					</div>
+				</article>
+
+				<article class="result" data-distance="126" data-duration="93" data-transfers="1">
+					<div class="result-header">
+						<span class="result-traveltime"><i class="fa fa-stopwatch"></i> 1 h 33 min</span>
+						<span class="result-distance">(126 km)</span>
+					</div>
+					<div class="route-outline">
+						<table>
+							<tr>
+								<td>Praha hl.n. <i class="fa fa-info-circle"></i></td>
+								<td></td>
+								<td><time class="departure">8:24</time></td>
+								<td class="service"><span class="service-badge sb-le">LE 1353 Leo Express</span></td>
+							</tr>
+							<tr>
+								<td>Pardubice hl.n. <i class="fa fa-info-circle"></i></td>
+								<td><time>9:21</time></td>
+								<td><time>9:33</time></td>
+								<td class="service"><span class="service-badge sb-cd">Os 6232</span></td>
+							</tr>
+							<tr>
+								<td>Hradec Králové hl.n. <i class="fa fa-info-circle"></i></td>
+								<td><time class="arrival">9:57</time></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</table>
+					</div>
+					<div class="price">
+						<a href="">flexibilní od <span class="amount"></span></a>
+					</div>
+				</article>
+
+				<article class="result" data-distance="116" data-duration="119" data-transfers="1">
+					<div class="result-header">
+						<span class="result-traveltime"><i class="fa fa-stopwatch"></i> 1 h 59 min</span>
+						<span class="result-distance">(116 km)</span>
+					</div>
+					<div class="route-outline">
+						<table>
+							<tr>
+								<td>Praha Masarykovo n. <i class="fa fa-info-circle"></i></td>
+								<td></td>
+								<td><time class="departure">8:52</time></td>
+								<td class="service"><span class="service-badge sb-le">Os 5815 (S2)</span></td>
+							</tr>
+							<tr>
+								<td>Nymburk hl.n. <i class="fa fa-info-circle"></i></td>
+								<td><time>9:49</time></td>
+								<td><time>9:55</time></td>
+								<td class="service"><span class="service-badge sb-cd">R 945 Hradečan</span></td>
+							</tr>
+							<tr>
+								<td>Hradec Králové hl.n. <i class="fa fa-info-circle"></i></td>
+								<td><time class="arrival">10:51</time></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</table>
+					</div>
+					<div class="price">
+						<a href="">flexibilní od <span class="amount"></span></a>
+					</div>
+				</article>
+			</section>
 			<section id="fare-options"></section>
 			<section id="purchase"></section>
 			<section id="confirmation"></section>>
