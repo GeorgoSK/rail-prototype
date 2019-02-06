@@ -1,10 +1,11 @@
 // out: eshop.css, sourceMap: true
 
-@header-bg: rgb(32,0,96);
+@header-bg: rgb(16,32,96);
 @interactive: rgb(0,190,240);
 @white: rgb(255,255,255);
 @accent-bg-light: rgb(200,206,212);
 @black: rgb(0,0,0);
+@green: rgb(32,150,32);
 
 * {
 	box-sizing: border-box;
@@ -16,6 +17,7 @@ body {
 	font-weight: 200;
 	padding: 0;
 	margin: 0;
+	background-color: rgb(240,244,248);
 }
 
 a {
@@ -23,10 +25,27 @@ a {
 	color: inherit;
 }
 
+@header-img-size: 24em;
+header:before {
+	display: block;
+	position: relative;
+	content: "";
+	height: @header-img-size;
+	background-image: url('assets/header-bg-2.jpg');
+	background-size: cover;
+	background-position: 0 80%;
+	margin-bottom: -@header-img-size;
+	z-index: -1;
+}
 header {
 	margin: 0;
-	background-color: @header-bg;
-	padding: 1em;
+	background-color: fadeout(@header-bg, 30%);
+	padding-bottom: 1em;
+	z-index: 1;
+	nav {
+		background-color: @white;
+		height: 2em;
+	}
 	h1 {
 		width: 960px;
 		margin: 1em auto;
@@ -34,12 +53,25 @@ header {
 		font-weight: 100;
 		color: @white;
 		text-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+		position: relative;
+		.logo-upper, .logo-lower {
+			position: relative;
+		}
+		.logo-upper {
+			top: -0.3em;
+		}
+		.logo-lower {
+			top: 0.3em;
+			left: -33px;
+			margin-right: -0.7em;
+		}
 	}
 
 }
 
 main {
-	section {
+	z-index: 1;
+	& > section {
 		width: 960px;
 		max-width: 100vw;
 		margin: 0 auto;
@@ -47,7 +79,7 @@ main {
 }
 
 #searchForm {
-	background-color: @header-bg;
+	background-color: fadeout(@header-bg, 30%);
 	padding: 1em 0 2em 0;
 	text-align: center;
 
@@ -78,6 +110,7 @@ main {
 		&:checked+label,
 		&+label:hover {
 			color: @interactive;
+			border-bottom: 2px solid @interactive;
 		}
 	}
 
@@ -92,16 +125,52 @@ main {
 			color: @white;
 		}
 	}
+
+	#searchTimes {
+		margin: 1em auto;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.search-submit {
+		display: inline-block;
+		color: @header-bg;
+		font-weight: 500;
+		background-color: @interactive;
+		margin: 0 1em;
+		padding: 0.5em 1em;
+	}
+
+	&.compact {
+		display: flex;
+		align-items: center;
+		font-size: 1rem;
+		padding: 0.5em 0;
+		.search-submit {
+			background-color: @white;
+			color: @header-bg;
+			transition: all 0.1s ease;
+			&:hover {
+				background-color: @interactive;
+				color: @white;
+			}
+		}
+	}
 }
 
 #search-options {
+	width: 100%;
 	display: flex;
+	position: relative;
+	margin-bottom: 2em;
 	justify-content: space-between;
 	background-color: @accent-bg-light;
 }
 
 #search-filters {
-	padding-top: 0.5em;
+	display: inline-block;
+	padding: 0.5em 0;
 	input[type=checkbox] {
 		display: none;
 		& + label {
@@ -118,15 +187,24 @@ main {
 				font-size: 2em;
 			}
 		}
+		&:checked + label {
+			background-color: @interactive;
+		}
 	}
 }
 
+#pax-section {
+	display: flex;
+	position: absolute;
+	right: 0;
+}
 .pax {
+	display: flex;
+	flex-flow: column wrap;
+	align-items: center;
 	border: 1px solid grey;
 	position: relative;
-	top: 0.5em;
-	right: 0.5em;
-	padding: 0.5em 0.5em 0 0.5em;
+	padding: 0.2em 0.5em 0 0.5em;
 	&, input {
 		font-size: 1.5rem;
 		font-weight: 500;
@@ -138,7 +216,12 @@ main {
 	}
 	p {
 		text-align: center;
-		margin: 0;
+		margin: 0 0 0.5em 0;
+		font-size: 0.8rem;
+		i {
+			display: inline-block;
+			margin-right: 1em;
+		}
 	}
 	a {
 		font-family: sans-serif;
@@ -149,19 +232,45 @@ main {
 		text-align: center;
 		max-width: 1em;
 	}
+	.pax-add {
+		margin-bottom: 0;
+		align-self: flex-start;
+		width: 100%;
+		background-color: @interactive;
+		a {
+			display: block;
+		}
+	}
 }
 
 #search-results {
+	h2 {
+		font-weight: 200;
+		em {
+			font-style: normal;
+			font-weight: 400;
+		}
+		time {
+			margin-left: 1em;
+		}
+	}
 	article {
+		cursor: default;
 		width: 100%;
 		border: 2px solid fadeout(@black, 50%);
 		display: flex;
-		flex-wrap: wrap;
 		justify-content: space-between;
 		margin: 1em 0;
-		padding: 0.8em;
 		font-size: 1.2rem;
 		font-weight: 300;
+		background-color: @white;
+		transition: all 0.2s ease;
+		&:hover {
+			border-color: @interactive;
+		}
+		.route-outline {
+			padding: 0.8em;
+		}
 		.result-header {
 			flex-basis: 100%;
 			display: flex;
@@ -176,6 +285,9 @@ main {
 				font-size: 0.9rem;
 			}
 		}
+		table {
+			width: 100%;
+		}
 		tr:not(:last-of-type) td {
 			border-bottom: 1px dotted fadeout(@black, 80%);
 		}
@@ -189,6 +301,13 @@ main {
 				}
 			}
 		}
+		.service-details {
+			display: none;
+		}
+	}
+
+	.detail-toggle {
+		display: none;
 	}
 	.arrival, .departure {
 		font-weight: 700;
@@ -197,26 +316,52 @@ main {
 		border: 1px solid grey;
 	}
 	.rt-direct {
-		color: green;
-		border-color: green;
+		color: @green;
+		border-color: @green;
 	}
 	.result-distance {
 		color: grey;
 	}
+	.service-badge {
+		display: inline-block;
+		border: 1px solid grey;
+		padding-right: 0.5em;
+		&:before {
+			content: "";
+			border-left: 16px solid grey;
+			position: relative;
+			padding-left: 1em;
+		}
+	}
+	.sb-cd:before {
+		border-color: rgb(0,160,240);
+	}
+	.sb-le:before {
+		border-color: rgb(250,90,0);
+	}
+	#classes-fares {
+		display: none;
+	}
 	.price {
-		border: 1px solid inherit;
+		display: flex;
+		align-content: center;
 		a {
-			display: inline-block;
-			border: 2px solid @interactive;
-			padding: 0.5em;
-			font-size: 0.8rem;
-			color: @header-bg;
-			background-color: @accent-bg-light;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			padding: 1em;
+			font-size: 1rem;
+			color: @black;
+			background-color: @interactive;
 			transition: all 0.2s ease;
 			font-weight: 500;
 			&:hover {
 				color: @white;
 				background-color: @header-bg;
+			}
+			&.price-selected {
+				color: @black;
+				background-color: transparent;
 			}
 			span.amount {
 				padding: 0.2em 0.2em 0 0;
@@ -224,10 +369,180 @@ main {
 				font-size: 1.5rem;
 			}
 		}
+
+	}
+	article.detailed {
+		position: relative;
+		&:hover {
+			border-color: gray;
+		}
+		.service-details {
+			display: block;
+			ul {
+				list-style-type: none;
+				padding: 0;
+				display: flex;
+				li {
+					margin-right: 0.5em;
+					font-size: 1.5em;
+				}
+			}
+			p {
+				margin: 0.2em 0;
+			}
+			a.link {
+				text-decoration: underline;
+				color: @header-bg;
+			}
+		}
+		.price {
+			display: none;
+		}
+		#pax-section {
+			bottom: 100%;
+		}
+		#classes-fares {
+			flex-basis: 40%;
+			display: flex;
+			flex-direction: column;
+			#class-selection {
+				display: flex;
+			}
+			input[type=radio] {
+				display: none;
+				& + label {
+					display: block;
+					padding: 0.5em;
+					cursor: pointer;
+					span.amount {
+						display: block;
+						font-size: 1.2em;
+						font-weight: 400;
+					}
+				}
+				&:checked + label {
+					background-color: @interactive;
+				}
+			}
+			.travel-class {
+				margin: 0.2em;
+				border: 1px solid @interactive;
+				width: 10em;
+				transition: border 0.3s ease;
+				&:hover {
+					border-width: 3px;
+				}
+			}
+			#class-confirm {
+				a {
+					display: block;
+					margin: 0.3em;
+					padding: 0.2em;
+					text-align: center;
+					span {
+						display: block;
+						font-size: 0.8rem;
+					}
+				}
+			}
+			.price {
+				display: block;
+			}
+			ul {
+				font-size: 0.8rem;
+				font-weight: 400;
+				padding-left: 0.2em;
+				list-style-type: none;
+				li {
+					margin: 0 0.3em 0.3em 0;
+				}
+				span {
+					font-weight: 600;
+				}
+			}
+		}
+	}
+	article.minimal {
+		border: 1px solid grey;
+		cursor: pointer;
+		&:hover {
+			border-color: @interactive;
+		}
+		background-color: inherit;
+		table {
+			display: flex;
+			padding-bottom: 0.5em;
+		}
+		tr, tr td {
+			display: inline-block;
+			border-width: 0;
+		}
+		td:empty, td.service, tr.transfer, i, .service-details {
+			display: none;
+		}
+		.route-outline {
+			display: flex;
+			padding: 0.2em 0.8em;
+			flex-direction: column-reverse;
+			.result-header, .result-header span {
+				margin: 0;
+				padding: 0;
+			}
+			.result-tag, .result-distance {
+				display: none;
+			}
+		}
+		.price a {
+			background-color: transparent;
+			padding: 0 0.5em;
+			span.amount {
+				padding: 0;
+				font-size: 1rem;
+			}
+		}
+		.price:hover a {
+			color: inherit;
+		}
+	}
+}
+
+#fare-options {
+	article {
+		background-color: @white;
+		border: 1px solid grey;
+		margin: 0.1em 0;
+		padding: 0 1em;
+	}
+	.reservation-options {
+		display: flex;
+		justify-content: space-between;
+		.seat-option {
+			cursor: pointer;
+			display: inline-block;
+			padding: 0.5em;
+			border: 1px solid @interactive;
+			&:hover {
+				border-width: 3px;
+			}
+		}
+		.seat-unavailable {
+			cursor: not-allowed;
+			border-color: grey;
+		}
 	}
 }
 
 .button-style {
 	display: inline-block;
 	cursor: pointer;
+}
+
+.ux-path-ahead {
+	background-color: @green;
+	color: @white;
+	font-weight: 400;
+}
+.ux-suggestion {
+	border: 1px solid @green;
+	font-weight: 400;
 }

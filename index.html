@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="eshop.css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
 		 crossorigin="anonymous">
@@ -12,22 +13,31 @@
 
 	<body>
 		<header>
+			<nav>
+
+			</nav>
 			<section>
-				<h1>1Jízdenka</h1>
+				<h1><span class="logo-upper">1</span><span class="logo-lower">J</span>ízdenka</h1>
 			</section>
 		</header>
 		<main>
 			<form id="searchForm">
 				<div id="searchLocations">
-					<input type="text" name="origin" id="search-origin" placeholder="Odkud">
-					<input type="text" name="destination" id="search-destination" placeholder="Kam">
-				</div>>
+					<input type="text" name="origin" id="search-origin" placeholder="Odkud" list="places">
+					<input type="text" name="destination" id="search-destination" placeholder="Kam" list="places">
+					<datalist id="places">
+						<option value="Praha"></option>
+						<option value="Hradec Králové"></option>
+					</datalist>
+				</div>
 				<div id="searchTimes">
 					<input type="radio" name="searchTime-preset" id="st-preset-today" checked><label for="st-preset-today">dnes</label>
 					<input type="radio" name="searchTime-preset" id="st-preset-tomorrow"><label for="st-preset-tomorrow">zítra</label>
 					<input type="radio" name="searchTime-preset" id="st-preset-picker"><label for="st-preset-picker"><i class="fa fa-calendar-alt"></i></label>
+					<input type="date" name="searchDate" id="search-date">
 					<input type="number" size="2" min="0" max="23" name="searchTime-hour" id="search-hour">
 					<input type="number" size="2" min="0" max="59" name="searchTime-minute" id="search-minute">
+					<a href="#search-results" class="search-submit">Najít spojení</a>
 				</div>
 			</form>
 			<section id="search-results">
@@ -36,21 +46,43 @@
 						<input type="checkbox" id="filter-wheelchair"><label for="filter-wheelchair"><i class="fa fa-wheelchair"></i></label>
 						<input type="checkbox" id="filter-bicycle"><label for="filter-bicycle"><i class="fas fa-bicycle"></i></label>
 					</div>
-					<div class="pax">
-						<i class="fa fa-male"></i>
-						<a href="" class="number-decrement" id="pax-minues">&minus;</a>
-						<input type="text" pattern="[\d]+" class="pax-number" data-min="1" size="1" value="1">
-						<a href="" class="number-increment" id="pax-plus">&plus;</a>
+					<div id="pax-section">
+						<div class="pax">
+							<p>Cestující</p>
+							<div>
+								<i class="fa fa-male"></i>
+								<a href="" class="number-decrement" id="pax-minues">&minus;</a>
+								<input type="text" pattern="[\d]+" class="pax-number" data-min="1" data-fareclass="adult" size="1" value="1">
+								<a href="" class="number-increment" id="pax-plus">&plus;</a>
+							</div>
+							<p>dospělí</p>
+						</div>
+						<div class="pax discounted">
+							<div>
+								<a href="" class="number-decrement" id="pax-minues">&minus;</a>
+								<input type="text" pattern="[\d]+" class="pax-number" data-min="1" data-fareclass="children0-6" size="1" value="1">
+								<a href="" class="number-increment" id="pax-plus">&plus;</a>
+							</div>
+							<p><i class="fa fa-baby"></i>Děti 0-6</p>
+							<div>
+								<a href="" class="number-decrement" id="pax-minues">&minus;</a>
+								<input type="text" pattern="[\d]+" class="pax-number" data-min="1" data-fareclass="children6-15" size="1" value="1">
+								<a href="" class="number-increment" id="pax-plus">&plus;</a>
+							</div>
+							<p><i class="fa fa-child"></i>Děti 6-15</p>
+						</div>
 					</div>
 				</div>
 				
+				<h2><em>Praha</em> &rarr; <em>Hradec Králové</em> <time></time></h2>
 				<article class="result" data-distance="121" data-duration="105" data-transfers="0">
-					<div class="result-header">
-						<span class="result-tag rt-direct">přímé spojení</span>
-						<span class="result-traveltime"><i class="fa fa-stopwatch"></i> 1 h 45 min</span>
-						<span class="result-distance">(121 km)</span>
-					</div>
+					<input type="radio" name="detail-toggle" class="detail-toggle">
 					<div class="route-outline">
+						<div class="result-header">
+							<span class="result-tag rt-direct">přímé spojení</span>
+							<span class="result-traveltime"><i class="fa fa-stopwatch"></i> 1 h 45 min</span>
+							<span class="result-distance">(121 km)</span>
+						</div>
 						<table>
 							<tr>
 								<td>Praha hl.n. <i class="fa fa-info-circle"></i></td>
@@ -66,16 +98,17 @@
 						</table>
 					</div>
 					<div class="price">
-						<a href="">flexibilní od <span class="amount"></span></a>
+						<a href="#	">flexibilní od <span class="amount"></span></a>
 					</div>
 				</article>
 
 				<article class="result" data-distance="126" data-duration="93" data-transfers="1">
-					<div class="result-header">
-						<span class="result-traveltime"><i class="fa fa-stopwatch"></i> 1 h 33 min</span>
-						<span class="result-distance">(126 km)</span>
-					</div>
+					<input type="radio" name="detail-toggle" class="detail-toggle">
 					<div class="route-outline">
+						<div class="result-header">
+							<span class="result-traveltime"><i class="fa fa-stopwatch"></i> 1 h 33 min</span>
+							<span class="result-distance">(126 km)</span>
+						</div>
 						<table>
 							<tr>
 								<td>Praha hl.n. <i class="fa fa-info-circle"></i></td>
@@ -83,7 +116,7 @@
 								<td><time class="departure">8:24</time></td>
 								<td class="service"><span class="service-badge sb-le">LE 1353 Leo Express</span></td>
 							</tr>
-							<tr>
+							<tr class="transfer">
 								<td>Pardubice hl.n. <i class="fa fa-info-circle"></i></td>
 								<td><time>9:21</time></td>
 								<td><time>9:33</time></td>
@@ -96,26 +129,37 @@
 								<td></td>
 							</tr>
 						</table>
+						<div class="service-details">
+							<ul>
+								<li><i class="fa fa-wifi"></i></li>
+								<li><i class="fa fa-wheelchair"></i></li>
+								<li><i class="fas fa-coffee"></i></li>
+							</ul>
+						<p>Přepravní podmínky</p>
+						<p><a class="link" href="">Leo Express</a></p>
+						<p><a class="link" href="">České dráhy</a></p>
+						</div>
 					</div>
 					<div class="price">
-						<a href="">flexibilní od <span class="amount"></span></a>
+						<a href="#">flexibilní od <span class="amount"></span></a>
 					</div>
 				</article>
 
 				<article class="result" data-distance="116" data-duration="119" data-transfers="1">
-					<div class="result-header">
-						<span class="result-traveltime"><i class="fa fa-stopwatch"></i> 1 h 59 min</span>
-						<span class="result-distance">(116 km)</span>
-					</div>
+					<input type="radio" name="detail-toggle" class="detail-toggle">
 					<div class="route-outline">
+						<div class="result-header">
+							<span class="result-traveltime"><i class="fa fa-stopwatch"></i> 1 h 59 min</span>
+							<span class="result-distance">(116 km)</span>
+						</div>
 						<table>
 							<tr>
 								<td>Praha Masarykovo n. <i class="fa fa-info-circle"></i></td>
 								<td></td>
 								<td><time class="departure">8:52</time></td>
-								<td class="service"><span class="service-badge sb-le">Os 5815 (S2)</span></td>
+								<td class="service"><span class="service-badge sb-cd">Os 5815 (S2)</span></td>
 							</tr>
-							<tr>
+							<tr class="transfer">
 								<td>Nymburk hl.n. <i class="fa fa-info-circle"></i></td>
 								<td><time>9:49</time></td>
 								<td><time>9:55</time></td>
@@ -130,13 +174,69 @@
 						</table>
 					</div>
 					<div class="price">
-						<a href="">flexibilní od <span class="amount"></span></a>
+						<a href="#">flexibilní od <span class="amount"></span></a>
 					</div>
 				</article>
+
+				<div id="classes-fares" hidden>
+					<div id="class-selection">
+						<div class="travel-class">
+							<div>
+								<input type="radio" name="travelClass" id="travelClass-second" value="2">
+								<label for="travelClass-second">2. třída <span data-travelClass="2" class="amount"></span></label>
+								<ul>
+									<li>platí na všechny spoje na této nebo kratší trase <span class="validity-distance"></span></li>
+									<li>platí od <span class="validity-startdate">6. 2. 2019 0:00</span> až do <span class="validity-enddate">7. 2. 2019 6:00</span></li>
+									<li>lze bezplatně vrátit do <span class="cancellation-enddate">5. 2. 2019 23:59</span></li>
+									<li>místenku snadno vyměníte až do 15 minut před odjezdem</li>
+								</ul>
+							</div>
+						</div>
+						<div class="travel-class">
+							<div class="price">
+								<input type="radio" name="travelClass" id="travelClass-first" value="1">
+								<label for="travelClass-first">1. třída <span id="first-class" data-travelClass="1" class="amount"></span></label>
+								<ul>
+									<li>platnost a storno podmínky jako v 2. třídě</li>
+									<li>vyšší komfort a víc osobního prostoru</li>
+									<li>voda a občerstvení v ceně</li>
+									<li>denní tisk zdarma</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="class-confirm">
+						<a href="" class="ux-path-ahead" id="result-continue">Vybrat jízdenku</a>
+						<a href="" class="ux-suggestion" id="result-return">Přidat zpáteční cestu<span>Ušetříte 5 %</span></a>
+					</div>
+				</div>
 			</section>
-			<section id="fare-options"></section>
-			<section id="purchase"></section>
-			<section id="confirmation"></section>>
+		
+			<section id="fare-options">
+				<h2>Rezervace míst</h2>
+				<article>
+					<h3 class="sb-le">LE 1353 Leo Express</h3>
+					<div class="reservation-options">
+						<p>Tento spoj vyžaduje rezervaci místa</p>
+						<section class="available-options">
+							<div class="seat-option">Economy</div>
+							<div class="seat-option" data-requiredclass="1">Business</div>
+							<div class="seat-option" data-requiredclass="1">Premium</div>
+						</section>
+					</div>
+				</article>
+				<article>
+					<h3 class="sb-le">Os 6232</h3>
+					<p>Tento spoj nenabízí rezervaci míst</p>
+				</article>
+			</section>
+
+			<section id="purchase">
+				<h2>Platba</h2>
+			</section>
+			<section id="confirmation">
+				<h2>Potvrzení</h2>
+			</section>
 		</main>
 		<footer>
 		</footer>
