@@ -114,10 +114,10 @@ $(document).ready(() => {
 	typeIn(origin, $('#search-origin'));
 	setTimeout(() => {
 		typeIn(destination, $('#search-destination'));
-		$('.search-submit').click();
-		$('#search-results article')[1].click();
 	}, 1000);
 	/*
+	$('.search-submit').click();
+	$('#search-results article')[1].click();
 	$('#result-continue').click();
 	*/
 });
