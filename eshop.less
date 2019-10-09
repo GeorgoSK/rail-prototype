@@ -6,6 +6,8 @@
 @accent-bg-light: rgb(200,206,212);
 @black: rgb(0,0,0);
 @green: rgb(32,150,32);
+@color-cd: rgb(0,160,240);
+@color-le: rgb(250,90,0);
 
 * {
 	box-sizing: border-box;
@@ -370,12 +372,7 @@ main {
 			padding-left: 1em;
 		}
 	}
-	.sb-cd:before {
-		border-color: rgb(0,160,240);
-	}
-	.sb-le:before {
-		border-color: rgb(250,90,0);
-	}
+
 	#classes-fares {
 		display: none;
 	}
@@ -415,8 +412,8 @@ main {
 		}
 		.service-details {
 			display: block;
+			.inline-list;
 			ul {
-				.inline-list;
 				display: flex;
 				li {
 					margin-right: 0.5em;
@@ -429,6 +426,13 @@ main {
 			a.link {
 				text-decoration: underline;
 				color: @header-bg;
+			}
+		}
+		.service-badge {
+			border-left: 3px solid grey;
+			padding-left: 0.2em;
+			&:before {
+				display: none;
 			}
 		}
 		.price {
@@ -470,6 +474,7 @@ main {
 				}
 			}
 			.travel-class {
+				text-align: center;
 				margin: 0.2em;
 				border: 1px solid @interactive;
 				width: 10em;
@@ -601,5 +606,58 @@ main {
 }
 .ux-suggestion {
 	border: 1px solid @green;
+	color: @green;
 	font-weight: 400;
+}
+
+body.calculator {
+	font-size: 1.5em;
+	font-weight: normal;
+	max-width: 100vw;
+	width: 960px;
+	margin: 2em auto;
+	form {
+		display: flex;
+		input, label {
+			margin-right: 0.5em;
+		}
+	}
+	input {
+		font-size: 1.5em;
+		max-width: 5em;
+	}
+	input[type=radio] {
+		display: none;
+		& + label {
+			padding: 0.5em;
+			display: inline-block;
+			cursor: pointer;
+			border: 1px solid @interactive;
+		}
+		&:checked + label {
+			color: @white;
+			background-color: @interactive;
+		}
+	}
+	button {
+		cursor: pointer;
+		background-color: @accent-bg-light;
+		padding: 0.5em;
+		border: none;
+	}
+
+	#results {
+		display: flex;
+		margin-top: 1em;
+		font-size: 1rem;
+		p {
+			margin-right: 0.3em;
+		}
+		output {
+			font-size: 1.5em;
+			display: block;
+			padding: 0.5em 1em;
+			border: 1px solid grey;
+		}
+	}
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Kalkulačka SJT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="eshop.css" />
+    <script src="jquery.js"></script>
+    <script src="eshop.js"></script>
+</head>
+
+<body class="calculator">
+    <section>
+    <form id="sjt-calc">
+        <input type="number" id="sjt-km" placeholder="km" size="3">
+        <input type="radio" id="class-1" name="class" value="1"><label for="class-1">1. třída</label>
+        <input type="radio" checked id="class-2" name="class" value="2"><label for="class-2">2. třída</label>
+        <button type="button" id="calculate">Vypočítat cenu</button>
+    </form>
+    <div id="results">
+        <p>Jednosměrná <output id="single"></output></p>
+        <p>Zpáteční <output id="return"></output></p>
+        <p>Týdenní <output id="weekly"></output></p>
+        <p>30denní <output id="monthly"></output></p>
+        <p>90denní <output id="quarterly"></output></p>
+    </div>
+    </section>
+</body>
+</html>

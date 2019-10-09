@@ -357,12 +357,6 @@ main > section {
   position: relative;
   padding-left: 1em;
 }
-#search-results .sb-cd:before {
-  border-color: #00a0f0;
-}
-#search-results .sb-le:before {
-  border-color: #fa5a00;
-}
 #search-results #classes-fares {
   display: none;
 }
@@ -404,15 +398,15 @@ main > section {
   display: block;
 }
 #search-results article.detailed .service-details ul {
-  display: flex;
-}
-#search-results article.detailed .service-details ul ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
-#search-results article.detailed .service-details ul ul li {
+#search-results article.detailed .service-details ul li {
   display: inline-block;
+}
+#search-results article.detailed .service-details ul {
+  display: flex;
 }
 #search-results article.detailed .service-details ul li {
   margin-right: 0.5em;
@@ -424,6 +418,13 @@ main > section {
 #search-results article.detailed .service-details a.link {
   text-decoration: underline;
   color: #000c24;
+}
+#search-results article.detailed .service-badge {
+  border-left: 3px solid grey;
+  padding-left: 0.2em;
+}
+#search-results article.detailed .service-badge:before {
+  display: none;
 }
 #search-results article.detailed .price {
   display: none;
@@ -465,6 +466,7 @@ main > section {
   background-color: #00bef0;
 }
 #search-results article.detailed #classes-fares .travel-class {
+  text-align: center;
   margin: 0.2em;
   border: 1px solid #00bef0;
   width: 10em;
@@ -589,6 +591,58 @@ main > section {
 }
 .ux-suggestion {
   border: 1px solid #209620;
+  color: #209620;
   font-weight: 400;
+}
+body.calculator {
+  font-size: 1.5em;
+  font-weight: normal;
+  max-width: 100vw;
+  width: 960px;
+  margin: 2em auto;
+}
+body.calculator form {
+  display: flex;
+}
+body.calculator form input,
+body.calculator form label {
+  margin-right: 0.5em;
+}
+body.calculator input {
+  font-size: 1.5em;
+  max-width: 5em;
+}
+body.calculator input[type=radio] {
+  display: none;
+}
+body.calculator input[type=radio] + label {
+  padding: 0.5em;
+  display: inline-block;
+  cursor: pointer;
+  border: 1px solid #00bef0;
+}
+body.calculator input[type=radio]:checked + label {
+  color: #ffffff;
+  background-color: #00bef0;
+}
+body.calculator button {
+  cursor: pointer;
+  background-color: #c8ced4;
+  padding: 0.5em;
+  border: none;
+}
+body.calculator #results {
+  display: flex;
+  margin-top: 1em;
+  font-size: 1rem;
+}
+body.calculator #results p {
+  margin-right: 0.3em;
+}
+body.calculator #results output {
+  font-size: 1.5em;
+  display: block;
+  padding: 0.5em 1em;
+  border: 1px solid grey;
 }
 /*# sourceMappingURL=./eshop.css.map */
