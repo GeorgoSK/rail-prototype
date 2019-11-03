@@ -16,31 +16,35 @@
     <h1>Kalkulačka</h1>
     <form id="sjt-calc">
         <input type="number" id="sjt-km" placeholder="km" size="3">
-        <input type="radio" id="class-1" name="class" value="1"><label for="class-1">1. třída</label>
-        <input type="radio" checked id="class-2" name="class" value="2"><label for="class-2">2. třída</label>
+        <input type="radio" id="calc-class-1" name="calc-class" value="1"><label for="calc-class-1">1. třída</label>
+        <input type="radio" checked id="calc-class-2" name="calc-class" value="2"><label for="calc-class-2">2. třída</label>
         <button type="button" id="calculate">Vypočítat cenu</button>
     </form>
     <div id="calc-results">
-        <p>Jednosměrná <output id="single"></output></p>
-        <p>Zpáteční <output id="return"></output></p>
-        <p>Týdenní <output id="weekly"></output></p>
-        <p>30denní <output id="monthly"></output></p>
-        <p>90denní <output id="quarterly"></output></p>
+        <p>Jednosměrná <output id="cr-single"></output></p>
+        <p>Zpáteční <output id="cr-return"></output></p>
+        <p>Týdenní <output id="cr-week"></output></p>
+        <p>30denní <output id="cr-month"></output></p>
+        <p>90denní <output id="cr-quarter"></output></p>
     </div>
     </section>
 
     <section>
         <h1>Tarifní tabulky</h1>
-        <form>
-            Tarifní kategorie: <select id="fareClass">
+        <form id="table-generate-form">
+            <p>Tarifní kategorie:</p>
+            <select id="fareClass">
                 <option value="100">obyčejné jízdné</option>
                 <option value="50">sleva 50 %</option>
                 <option value="25">sleva 75 %</option>
             </select>
-            <input type="radio" id="class-1" name="class" value="1"><label for="class-1">1. třída</label>
-            <input type="radio" checked id="class-2" name="class" value="2"><label for="class-2">2. třída</label>
-            <button type="button" id="generate-table">Vypočítat cenu</button>
+            <input type="radio" id="gen-class-1" name="gen-class" value="1"><label for="gen-class-1">1. třída</label>
+            <input type="radio" checked id="gen-class-2" name="gen-class" value="2"><label for="gen-class-2">2. třída</label>
+            <button type="button" id="generate-table">Vygenerovat ceník</button>
         </form>
+        <div id="gen-results">
+
+        </div>
     </section>
 </body>
 </html>

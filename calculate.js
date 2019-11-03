@@ -1,23 +1,27 @@
+const ticketTypes = ['single', 'return', 'week', 'month', 'quarter'];
 $(document).ready(() => {
-    if ($('body').hasClass('calculator')) {
-        $('#sjt-km').val(Math.round(Math.random()*200));
-        $('#calc-results').hide();
-        $('#calculate').on('click', function() {
-            var cls = $('input[name=class]:checked').val();
-            var dist = parseInt($('#sjt-km').val());
-            $('#calc-results').slideDown();
-            $('#single').html(calculatePrice(dist, cls) + " Kč");
-            $('#return').html(calculatePrice(dist, cls, 'single', true) + " Kč");
-            $('#weekly').html(calculatePrice(dist, cls, 'week') + " Kč");
-            $('#monthly').html(calculatePrice(dist, cls, 'month') + " Kč");
-            $('#quarterly').html(calculatePrice(dist, cls, 'quarter') + " Kč");
+    $('#sjt-km').val(Math.round(Math.random()*200));
+    $('#calc-results, #gen-results').hide();
+    $('#calculate').on('click', function() {
+        var cls = $('input[name=calc-class]:checked').val();
+        var dist = parseInt($('#sjt-km').val());
+        $('#calc-results').slideDown();
+        ticketTypes.forEach((type) => {
+            $('#cr-' + type).html(calculatePrice(dist, cls, type) + " Kč");
         });
-    }
+    });
+    $('#generate-table').on('click', function() {
+        var cls = $('input[name=gen-class]:checked').val();
+        var fare = $('#fareClass').val();
+        $('#gen-results').empty();
+        generatePricelist(cls, fare);
+        $('#gen-results').slideDown();
+    });
 })
     
-    function calculatePrice(dist, cls = 2, type = 'single', ret = false, pass = false) {
+function calculatePrice(dist, cls = 2, type = 'single', pass = false, year = false) {
 	const base = 1.3354;
-    const fee = ret ? 11.935 : 11.498;
+    const fee = (type == 'return') ? 11.935 : 11.498;
     const passes = {
         'year': {
             1: 28090,
@@ -37,17 +41,21 @@ $(document).ready(() => {
         }
     };
     const prisc = {
+        2018: 1,
         2019: 2.1
+    }
+    if (!year) {
+        year = new Date().getFullYear();
     }
 
     if (pass) {
         if (passes[type]) {
-            fare = passes[type][cls]
+            fare = passes[type][cls];
         } else {
             return false;
         }
     } else {
-        var fare = ret ? 2 * (base * dist + fee) * 0.95 : base * dist + fee;
+        var fare = (type == 'return') ? 2 * (base * dist + fee) * 0.95 : base * dist + fee;
     
         switch (type) {
             case 'week':
@@ -62,19 +70,36 @@ $(document).ready(() => {
         }
         
         if (cls == 1) {
-            switch (type) {
-                case 'single':
-                    fare = fare * 1.3;
-                    break;
-                default:
-                    fare = fare * 1.2;
-            }
+            fare = (type == 'single' || type == 'return') ? fare * 1.3 : fare * 1.2;
         }
     }
 
     for (inflate in prisc) {
-        console.log(fare + ' * ' + prisc[inflate]);
         fare = fare * ((100 + prisc[inflate]) / 100);
     }
     return Math.round(fare);
+}
+
+function generatePricelist(cls = 2, fare = 100, maxkm = 1000, year = false) {
+    if (cls == 1 && fare != 100) {
+        $('#gen-results').append($('<p></p>').text('Na 1. třídu se nevztahují státem nařízené slevy.'));
+        return false;
+    }
+    const labels = ['km','jednosměrná','zpáteční','traťová 7d','traťová 30d','traťová 90d'];
+    const genTable = $('<table></table>');
+    var firstRow = $('<tr></tr>');
+    genTable.append(firstRow);
+    labels.forEach((label) => {
+        $('<th></th>').text(label).appendTo(firstRow);
+    });
+    $('#gen-results').append(genTable);
+    console.log(fare);
+    for (var i = 1; i <= maxkm; i++) {
+        var currentRow = $('<tr></tr>').appendTo(genTable);
+        currentRow.append($('<td></td>').text(i));
+        ticketTypes.forEach((type) => {
+            var price = Math.round(calculatePrice(i, cls, type) * fare / 100);
+            currentRow.append($('<td></td>').text(price));
+        });  
+    }
 }
