@@ -41,7 +41,7 @@ function calculatePrice(dist, cls = 2, type = 'single', year = false, pass = fal
         }
     };
     const prisc = {
-        2018: 1,
+        2018: 0,
         2019: 2.1,
         2020: 2.7
     }
@@ -75,14 +75,15 @@ function calculatePrice(dist, cls = 2, type = 'single', year = false, pass = fal
         }
     }
 
-    for (inflate in prisc) {
-        if (inflate <= year) {
-            console.log(prisc[inflate]);
-            fare = fare * ((100 + prisc[inflate]) / 100);
+    var inflate = 0;
+    for (yearValue in prisc) {
+        if (yearValue <= year) {
+            inflate += prisc[yearValue];
         } else {
             break;
         }
     }
+    fare *= ((100 + inflate) / 100);
     return Math.round(fare);
 }
 
