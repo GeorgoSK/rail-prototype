@@ -36,7 +36,6 @@ function inflate(fare, year) {
 	for (yearValue in prisc) {
 		if (yearValue <= year) {
 			fare *= (100 + prisc[yearValue]) / 100;
-			console.log(fare);
 		} else {
 			break;
 		}
