@@ -20,7 +20,7 @@ $(document).ready(() => {
 })
     
 function calculatePrice(dist, cls = 2, type = 'single', pass = false, year = false) {
-	const base = 1.3354;
+	const base = 1.3554;
     const fee = (type == 'return') ? 11.935 : 11.498;
     const passes = {
         'year': {
