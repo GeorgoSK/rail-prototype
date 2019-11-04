@@ -20,83 +20,58 @@ $(document).ready(() => {
 		generatePricelist(cls, fare, 1000, year);
 	});
 })
-	
-function calculatePrice(dist, cls = 2, type = 'single', year = false, pass = false) {
-	//Základní kilometrická sazba
-	const base = 1.3554;
-	//Základní fixní sazba, odlišná pro zpáteční jednotlivé jízdenky
-	const fee = (type == 'return') ? 11.935 : 11.498;
-	//Základní výchozí ceny síťových jízdenek
-	const passes = {
-		'year': {
-			1: 28090,
-			2: 22500
-		},
-		'quarter': {
-			1: 18090,
-			2: 14500
-		},
-		'month': {
-			1: 5690,
-			2: 4500
-		},
-		'week': {
-			1: 1890,
-			2: 1500
-		}
-	};
-	//Indexy růstu spotřebitelských cen za dobu existence tarifu
-	const prisc = {
-		2018: 0,
-		2019: 2.1,
-		2020: 2.7
-	}
+
+function inflate(fare, year) {
 	//Pokud není specifikován ceníkový rok, použije se aktuální
 	if (!year) {
 		year = new Date().getFullYear();
 	}
-
-	//Mód výpočtu - síťová jízdenka vs kilometrický tarif
-	if (pass) {
-		if (passes[type]) {
-			fare = passes[type][cls];
-		} else {
-			return false;
-		}
-	} else {
-		//Výpočet základní kilometrické hodnoty včetně fixní složky
-		var fare = (type == 'return') ? 2 * (base * dist + fee) * 0.95 : base * dist + fee;
-	
-		//Násobení koeficientem pro 1. třídu, koeficient odlišný pro jednotlivé a traťové jízdenky
-		if (cls == 1) {
-			fare = (type == 'single' || type == 'return') ? fare * 1.3 : fare * 1.2;
-		}
+	//Indexy růstu spotřebitelských cen za dobu existence tarifu
+	const prisc = {
+		2018: 0,
+		2019: 2.5,
+		2020: 2.1
 	}
-
 	//Roční valorizace na základě inflace, iterativně
 	for (yearValue in prisc) {
 		if (yearValue <= year) {
 			fare *= (100 + prisc[yearValue]) / 100;
+			console.log(fare);
 		} else {
 			break;
 		}
 	}
+	return fare;
+}
+	
+function calculatePrice(dist, cls = 2, type = 'single', year = false) {
+	//Základní kilometrická sazba
+	const base = 1.3554;
+	//Základní fixní sazba, odlišná pro zpáteční jednotlivé jízdenky
+	const fee = (type == 'return') ? 11.935 : 11.498;
+
+	//Výpočet základní kilometrické hodnoty včetně fixní složky
+	var fare = (type == 'return') ? 2 * (base * dist + fee) * 0.95 : base * dist + fee;
+
+	//Násobení koeficientem pro 1. třídu, koeficient odlišný pro jednotlivé a traťové jízdenky
+	if (cls == 1) {
+		fare = (type == 'single' || type == 'return') ? fare * 1.3 : fare * 1.2;
+	}
+
 	//Zaokrouhlení finální valorizované ceny
-	fare = Math.round(fare);
+	fare = Math.round(inflate(fare, year));
 	
 	//Multiplikátor pro traťové jízdenky
-	if (!pass) {
-		switch (type) {
-			case 'week':
-				fare *= 8;
-				break;
-			case 'month':
-				fare *= 28;
-				break;
-			case 'quarter':
-				fare *= 74;
-				break;
-		}
+	switch (type) {
+		case 'week':
+			fare *= 8;
+			break;
+		case 'month':
+			fare *= 28;
+			break;
+		case 'quarter':
+			fare *= 74;
+			break;
 	}
 	return fare;
 }
@@ -126,5 +101,32 @@ function generatePricelist(cls = 2, fare = 100, maxkm = 1000, year = false) {
 			currentRow.append($('<td></td>').text(price));
 		});
 		genTable.append(currentRow);
+	}
+}
+
+function getPassPrice(type, year = false) {
+	//Základní výchozí ceny síťových jízdenek
+	const passes = {
+		'year': {
+			1: 28090,
+			2: 22500
+		},
+		'quarter': {
+			1: 18090,
+			2: 14500
+		},
+		'month': {
+			1: 5690,
+			2: 4500
+		},
+		'week': {
+			1: 1890,
+			2: 1500
+		}
+	};
+	if (passes[type]) {
+		fare = inflate(passes[type][cls], year);
+	} else {
+		return false;
 	}
 }
