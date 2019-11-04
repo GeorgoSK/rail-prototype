@@ -75,15 +75,13 @@ function calculatePrice(dist, cls = 2, type = 'single', year = false, pass = fal
         }
     }
 
-    var inflate = 0;
     for (yearValue in prisc) {
         if (yearValue <= year) {
-            inflate += prisc[yearValue];
+            fare *= (100 + prisc[yearValue]) / 100;
         } else {
             break;
         }
     }
-    fare *= ((100 + inflate) / 100);
     return Math.round(fare);
 }
 
