@@ -1,7 +1,7 @@
 const ticketTypes = ['single', 'return', 'week', 'month', 'quarter'];
 $(document).ready(() => {
     $('#sjt-km').val(Math.round(Math.random()*200));
-    $('#calc-results, #gen-results').hide();
+    $('#calc-results').hide();
     $('#calculate').on('click', function() {
         var cls = $('input[name=calc-class]:checked').val();
         var dist = parseInt($('#sjt-km').val());
@@ -13,13 +13,13 @@ $(document).ready(() => {
     $('#generate-table').on('click', function() {
         var cls = $('input[name=gen-class]:checked').val();
         var fare = $('#fareClass').val();
+        var year = $('#priceYear').val();
         $('#gen-results').empty();
-        generatePricelist(cls, fare);
-        $('#gen-results').slideDown();
+        generatePricelist(cls, fare, 1000, year);
     });
 })
     
-function calculatePrice(dist, cls = 2, type = 'single', pass = false, year = false) {
+function calculatePrice(dist, cls = 2, type = 'single', year = false, pass = false) {
 	const base = 1.3554;
     const fee = (type == 'return') ? 11.935 : 11.498;
     const passes = {
@@ -42,7 +42,8 @@ function calculatePrice(dist, cls = 2, type = 'single', pass = false, year = fal
     };
     const prisc = {
         2018: 1,
-        2019: 2.1
+        2019: 2.1,
+        2020: 2.7
     }
     if (!year) {
         year = new Date().getFullYear();
@@ -75,7 +76,12 @@ function calculatePrice(dist, cls = 2, type = 'single', pass = false, year = fal
     }
 
     for (inflate in prisc) {
-        fare = fare * ((100 + prisc[inflate]) / 100);
+        if (inflate <= year) {
+            console.log(prisc[inflate]);
+            fare = fare * ((100 + prisc[inflate]) / 100);
+        } else {
+            break;
+        }
     }
     return Math.round(fare);
 }
@@ -93,12 +99,11 @@ function generatePricelist(cls = 2, fare = 100, maxkm = 1000, year = false) {
         $('<th></th>').text(label).appendTo(firstRow);
     });
     $('#gen-results').append(genTable);
-    console.log(fare);
     for (var i = 1; i <= maxkm; i++) {
         var currentRow = $('<tr></tr>').appendTo(genTable);
         currentRow.append($('<td></td>').text(i));
         ticketTypes.forEach((type) => {
-            var price = Math.round(calculatePrice(i, cls, type) * fare / 100);
+            var price = Math.round(calculatePrice(i, cls, type, year) * fare / 100);
             currentRow.append($('<td></td>').text(price));
         });  
     }
