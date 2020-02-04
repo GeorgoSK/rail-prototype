@@ -1,0 +1,83 @@
+body {
+  font-size: 1.5em;
+  font-family: Roboto, sans-serif;
+  font-weight: normal;
+  max-width: 100vw;
+  width: 960px;
+  background-color: #c8ced4;
+  margin: 2em auto;
+}
+body form {
+  display: flex;
+}
+body form input,
+body form label {
+  margin-right: 0.5em;
+}
+body input {
+  font-size: 1.5em;
+  max-width: 5em;
+}
+body select {
+  font-size: 1em;
+}
+body input[type=radio] {
+  display: none;
+}
+body input[type=radio] + label {
+  padding: 0.5em;
+  display: inline-block;
+  cursor: pointer;
+  border: 1px solid #00bef0;
+}
+body input[type=radio]:checked + label {
+  color: #ffffff;
+  background-color: #00bef0;
+}
+body button {
+  cursor: pointer;
+  background-color: #abac18;
+  padding: 0.5em;
+  border: none;
+  font-size: 1em;
+  color: #ffffff;
+}
+body #table-generate-form {
+  display: flex;
+}
+body #table-generate-form p,
+body #table-generate-form input,
+body #table-generate-form select {
+  margin: 0 1em 0 0;
+}
+body #calc-results {
+  margin-top: 1em;
+  font-size: 1rem;
+}
+body #calc-results p {
+  margin-right: 0.3em;
+}
+body #calc-results output {
+  font-size: 1.5em;
+  display: block;
+  padding: 0.5em 1em;
+  border: 1px solid #4d4d21;
+}
+body #fareTable {
+  margin: 1em 0;
+  width: 100%;
+}
+body #fareTable th {
+  border-bottom: 1px solid #4d4d21;
+}
+body #fareTable td:not(:first-child) {
+  width: 18%;
+  text-align: center;
+}
+body #fareTable td:first-child {
+  border-right: 1px solid #abac18;
+  text-align: center;
+}
+body #fareTable tr:nth-child(even) {
+  background-color: #ffffff;
+}
