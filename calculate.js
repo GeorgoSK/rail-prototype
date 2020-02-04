@@ -3,7 +3,7 @@ const ticketTypes = ['single', 'return', 'week', 'month', 'quarter'];
 
 $(document).ready(() => {
 	$('#sjt-km').val(Math.round(Math.random()*200));
-	$('#calc-results').hide();
+	$('#calc-results, section').hide();
 	$('#calculate').on('click', function() {
 		for (var cls = 2; cls >= 1; cls--) {
 			var dist = parseInt($('#sjt-km').val());
@@ -20,6 +20,12 @@ $(document).ready(() => {
 		$('#gen-results').empty();
 		generatePricelist(cls, fare, 1000, year);
 	});
+
+	$('nav input[name=tabs]').on('change', function() {
+		$('section').hide();
+		$('#' + $(this).val()).show();
+	});
+	$('nav input[name=tabs]').first().click();
 })
 
 function inflate(fare, year) {
@@ -69,7 +75,7 @@ function calculatePrice(dist, cls = 2, type = 'single', year = false) {
 			fare *= 74;
 			break;
 	}
-	
+
 	//Násobení koeficientem pro 1. třídu, koeficient odlišný pro jednotlivé a traťové jízdenky
 	if (cls == 1) {
 		fare = (type == 'single' || type == 'return') ? fare * 1.3 : fare * 1.2;

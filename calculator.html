@@ -12,12 +12,19 @@
 </head>
 
 <body class="calculator">
-    <section>
+    <nav>
+        <input type="radio" name="tabs" id="tabs-calc" value="tab-calc"><label for="tabs-calc">Kalkulačka</label>
+        <input type="radio" name="tabs" id="tabs-table" value="tab-table"><label for="tabs-table">Cenová tabulka</label>
+        <input type="radio" name="tabs" id="tabs-passes" value="tab-passes"><label for="tabs-passes">Síťové jízdenky</label>
+    </nav>
+    <section id="tab-calc">
     <h1>Kalkulačka</h1>
     <form id="sjt-calc">
         <input type="number" id="sjt-km" placeholder="km" size="3">
+        <!--
         <input type="radio" id="calc-class-1" name="calc-class" value="1"><label for="calc-class-1">1. třída</label>
         <input type="radio" checked id="calc-class-2" name="calc-class" value="2"><label for="calc-class-2">2. třída</label>
+        -->
         <button type="button" id="calculate">Vypočítat cenu</button>
     </form>
     <table id="calc-results">
@@ -40,7 +47,7 @@
     </table>
     </section>
 
-    <section>
+    <section id="tab-table">
         <h1>Tarifní tabulky</h1>
         <form id="table-generate-form">
             <p>Tarifní kategorie:</p>
@@ -62,6 +69,10 @@
         <div id="gen-results">
 
         </div>
+    </section>
+
+    <section id="tab-passes">
+
     </section>
 </body>
 </html>
