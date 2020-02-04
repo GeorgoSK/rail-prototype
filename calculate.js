@@ -30,7 +30,8 @@ function inflate(fare, year) {
 	const prisc = {
 		2018: 0,
 		2019: 2.5,
-		2020: 2.1
+		2020: 2.1,
+		2021: 2.8
 	}
 	//Roční valorizace na základě inflace, iterativně
 	for (yearValue in prisc) {
@@ -52,13 +53,14 @@ function calculatePrice(dist, cls = 2, type = 'single', year = false) {
 	//Výpočet základní kilometrické hodnoty včetně fixní složky
 	var fare = (type == 'return') ? 2 * (base * dist + fee) * 0.95 : base * dist + fee;
 
+	//Zaokrouhlení finální valorizované ceny
+	fare = Math.round(inflate(fare, year));
+
 	//Násobení koeficientem pro 1. třídu, koeficient odlišný pro jednotlivé a traťové jízdenky
 	if (cls == 1) {
 		fare = (type == 'single' || type == 'return') ? fare * 1.3 : fare * 1.2;
+		fare = Math.round(fare);
 	}
-
-	//Zaokrouhlení finální valorizované ceny
-	fare = Math.round(inflate(fare, year));
 	
 	//Multiplikátor pro traťové jízdenky
 	switch (type) {
@@ -106,26 +108,18 @@ function generatePricelist(cls = 2, fare = 100, maxkm = 1000, year = false) {
 function getPassPrice(type, year = false) {
 	//Základní výchozí ceny síťových jízdenek
 	const passes = {
-		'year': {
-			1: 28090,
-			2: 22500
-		},
-		'quarter': {
-			1: 18090,
-			2: 14500
-		},
-		'month': {
-			1: 5690,
-			2: 4500
-		},
-		'week': {
-			1: 1890,
-			2: 1500
-		}
+		year: 22500,
+		half: 14500,
+		quarter: 11000,
+		month: 4500,
+		week: 1500
 	};
-	if (passes[type]) {
-		fare = inflate(passes[type][cls], year);
-	} else {
-		return false;
+	const supplements = {
+		year: 5590,
+		quarter: 3590,
+		half: 2690,
+		month: 1190,
+		week: 390
 	}
+	return (passes[type]) ? inflate(passes[type], year) + supplements[type] : false;
 }
