@@ -5,12 +5,13 @@ $(document).ready(() => {
 	$('#sjt-km').val(Math.round(Math.random()*200));
 	$('#calc-results').hide();
 	$('#calculate').on('click', function() {
-		var cls = $('input[name=calc-class]:checked').val();
-		var dist = parseInt($('#sjt-km').val());
+		for (var cls = 2; cls >= 1; cls--) {
+			var dist = parseInt($('#sjt-km').val());
+			ticketTypes.forEach((type) => {
+				$('#cr-' + cls + '-' + type).html(calculatePrice(dist, cls, type) + " Kč");
+			});
+		}
 		$('#calc-results').slideDown();
-		ticketTypes.forEach((type) => {
-			$('#cr-' + type).html(calculatePrice(dist, cls, type) + " Kč");
-		});
 	});
 	$('#generate-table').on('click', function() {
 		var cls = $('input[name=gen-class]:checked').val();
@@ -56,12 +57,6 @@ function calculatePrice(dist, cls = 2, type = 'single', year = false) {
 	//Zaokrouhlení finální valorizované ceny
 	fare = Math.round(inflate(fare, year));
 
-	//Násobení koeficientem pro 1. třídu, koeficient odlišný pro jednotlivé a traťové jízdenky
-	if (cls == 1) {
-		fare = (type == 'single' || type == 'return') ? fare * 1.3 : fare * 1.2;
-		fare = Math.round(fare);
-	}
-	
 	//Multiplikátor pro traťové jízdenky
 	switch (type) {
 		case 'week':
@@ -74,6 +69,13 @@ function calculatePrice(dist, cls = 2, type = 'single', year = false) {
 			fare *= 74;
 			break;
 	}
+	
+	//Násobení koeficientem pro 1. třídu, koeficient odlišný pro jednotlivé a traťové jízdenky
+	if (cls == 1) {
+		fare = (type == 'single' || type == 'return') ? fare * 1.3 : fare * 1.2;
+		fare = Math.round(fare);
+	}
+	
 	return fare;
 }
 
@@ -85,7 +87,7 @@ function generatePricelist(cls = 2, fare = 100, maxkm = 1000, year = false) {
 	}
 	//Hlavičky výstupní tabulky
 	const labels = ['km','jednosměrná','zpáteční','traťová 7d','traťová 30d','traťová 90d'];
-	const genTable = $('<table></table>');
+	const genTable = $('<table></table>').attr('id','fareTable');
 	const firstRow = $('<tr></tr>');
 	genTable.append(firstRow);
 	labels.forEach((label) => {
