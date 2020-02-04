@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Kalkulačka SJT</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="eshop.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="calculator.css" />
     <script src="jquery.js"></script>
     <script src="eshop.js"></script>
     <script src="calculate.js"></script>
@@ -20,13 +20,24 @@
         <input type="radio" checked id="calc-class-2" name="calc-class" value="2"><label for="calc-class-2">2. třída</label>
         <button type="button" id="calculate">Vypočítat cenu</button>
     </form>
-    <div id="calc-results">
-        <p>Jednosměrná <output id="cr-single"></output></p>
-        <p>Zpáteční <output id="cr-return"></output></p>
-        <p>Týdenní <output id="cr-week"></output></p>
-        <p>30denní <output id="cr-month"></output></p>
-        <p>90denní <output id="cr-quarter"></output></p>
-    </div>
+    <table id="calc-results">
+        <tr>
+        <th scope="row">2. třída</th>
+        <td>Jednosměrná <output id="cr-2-single"></output></td>
+        <td>Zpáteční <output id="cr-2-return"></output></td>
+        <td>Týdenní <output id="cr-2-week"></output></td>
+        <td>30denní <output id="cr-2-month"></output></td>
+        <td>90denní <output id="cr-2-quarter"></output></td>
+        </tr>
+        <tr>
+        <th scope="row">1. třída</th>
+        <td>Jednosměrná <output id="cr-1-single"></output></td>
+        <td>Zpáteční <output id="cr-1-return"></output></td>
+        <td>Týdenní <output id="cr-1-week"></output></td>
+        <td>30denní <output id="cr-1-month"></output></td>
+        <td>90denní <output id="cr-1-quarter"></output></td>
+        </tr>
+    </table>
     </section>
 
     <section>
@@ -42,8 +53,9 @@
             <input type="radio" checked id="gen-class-2" name="gen-class" value="2"><label for="gen-class-2">2. třída</label>
             <select id="priceYear">
                 <option value="2018">2017/2018</option>
-                <option value="2019" selected>2018/2019</option>
-                <option value="2020">2019/2020</option>
+                <option value="2019">2018/2019</option>
+                <option value="2020" selected>2019/2020</option>
+                <option value="2021">2020/2021</option>
             </select>
             <button type="button" id="generate-table">Vygenerovat ceník</button>
         </form>
