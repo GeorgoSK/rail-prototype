@@ -1,9 +1,11 @@
 //Typy jízdenek podle časové platnosti
 const ticketTypes = ['single', 'return', 'week', 'month', 'quarter'];
+const passTypes = ['week','month','quarter','half','year'];
 
 $(document).ready(() => {
 	$('#sjt-km').val(Math.round(Math.random()*200));
-	$('#calc-results, section').hide();
+	$('#calc-results, #pass-prices').hide();
+	$('section:not(first-of-type').hide();
 	$('#calculate').on('click', function() {
 		for (var cls = 2; cls >= 1; cls--) {
 			var dist = parseInt($('#sjt-km').val());
@@ -19,6 +21,15 @@ $(document).ready(() => {
 		var year = $('#priceYear').val();
 		$('#gen-results').empty();
 		generatePricelist(cls, fare, 1000, year);
+	});
+	$('#get-passes').on('click', function() {
+		var year = $('#passYear').val();
+		for (var cls = 2; cls >= 1; cls--) {
+			passTypes.forEach((type) => {
+				$('#cp-' + cls + '-' + type).html(getPassPrice(type, cls, year) + " Kč");
+			});
+		}
+		$('#pass-prices').slideDown();		
 	});
 
 	$('nav input[name=tabs]').on('change', function() {
@@ -48,7 +59,7 @@ function inflate(fare, year) {
 			break;
 		}
 	}
-	return fare;
+	return Math.round(fare);
 }
 	
 function calculatePrice(dist, cls = 2, type = 'single', year = false) {
@@ -113,7 +124,7 @@ function generatePricelist(cls = 2, fare = 100, maxkm = 1000, year = false) {
 	}
 }
 
-function getPassPrice(type, year = false) {
+function getPassPrice(type, cls =  2, year = false) {
 	//Základní výchozí ceny síťových jízdenek
 	const passes = {
 		year: 22500,
@@ -122,12 +133,18 @@ function getPassPrice(type, year = false) {
 		month: 4500,
 		week: 1500
 	};
+	//Fixní příplatky k základní ceně síťové jízdenky, nepodléhají valorizaci
 	const supplements = {
 		year: 5590,
-		quarter: 3590,
-		half: 2690,
+		half: 3590,
+		quarter: 2690,
 		month: 1190,
 		week: 390
 	}
-	return (passes[type]) ? inflate(passes[type], year) + supplements[type] : false;
+	if (passes[type]) {
+		var fare = Math.round(inflate(passes[type], year));
+		return (cls == 1) ? fare + supplements[type] : fare;
+	} else {
+		return false;
+	}
 }

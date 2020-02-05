@@ -21,13 +21,9 @@
     <h1>Kalkulačka</h1>
     <form id="sjt-calc">
         <input type="number" id="sjt-km" placeholder="km" size="3">
-        <!--
-        <input type="radio" id="calc-class-1" name="calc-class" value="1"><label for="calc-class-1">1. třída</label>
-        <input type="radio" checked id="calc-class-2" name="calc-class" value="2"><label for="calc-class-2">2. třída</label>
-        -->
         <button type="button" id="calculate">Vypočítat cenu</button>
     </form>
-    <table id="calc-results">
+    <table id="calc-results" class="fares-results">
         <tr>
         <th scope="row">2. třída</th>
         <td>Jednosměrná <output id="cr-2-single"></output></td>
@@ -67,12 +63,38 @@
             <button type="button" id="generate-table">Vygenerovat ceník</button>
         </form>
         <div id="gen-results">
-
         </div>
     </section>
 
     <section id="tab-passes">
-
+        <h1>Síťové jízdenky</h1>
+        <form id="sjt-calc">
+            <select id="passYear">
+                <option value="2018">2017/2018</option>
+                <option value="2019">2018/2019</option>
+                <option value="2020" selected>2019/2020</option>
+                <option value="2021">2020/2021</option>
+            </select>
+            <button type="button" id="get-passes">Zobrazit ceny</button>
+        </form>        
+        <table id="pass-prices" class="fares-results">
+            <tr>
+            <th scope="row">2. třída</th>
+                <td>Týdenní <output id="cp-2-week"></output></td>
+                <td>30denní <output id="cp-2-month"></output></td>
+                <td>90denní <output id="cp-2-quarter"></output></td>
+                <td>180denní <output id="cp-2-half"></output></td>
+                <td>Roční <output id="cp-2-year"></output></td>
+            </tr>
+            <tr>
+                <th scope="row">2. třída</th>
+                <td>Týdenní <output id="cp-1-week"></output></td>
+                <td>30denní <output id="cp-1-month"></output></td>
+                <td>90denní <output id="cp-1-quarter"></output></td>
+                <td>180denní <output id="cp-1-half"></output></td>
+                <td>Roční <output id="cp-1-year"></output></td>
+            </tr>       
+        </table>
     </section>
 </body>
 </html>

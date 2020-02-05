@@ -11,8 +11,9 @@ form {
   display: flex;
 }
 form input,
-form label {
-  margin-right: 0.5em;
+form label,
+form select {
+  margin-right: 0.1em;
 }
 input {
   font-size: 1.5em;
@@ -50,14 +51,14 @@ button {
 #table-generate-form select {
   margin: 0 1em 0 0;
 }
-#calc-results {
+.fares-results {
   margin-top: 1em;
   font-size: 1rem;
 }
-#calc-results p {
+.fares-results p {
   margin-right: 0.3em;
 }
-#calc-results output {
+.fares-results output {
   font-size: 1.5em;
   display: block;
   padding: 0.5em 1em;
