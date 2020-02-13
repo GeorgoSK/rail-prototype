@@ -1,6 +1,7 @@
 //Typy jízdenek podle časové platnosti
 const ticketTypes = ['single', 'return', 'week', 'month', 'quarter'];
 const passTypes = ['week','month','quarter','half','year'];
+const fares = [25,50];
 
 $(document).ready(() => {
 	$('#sjt-km').val(Math.round(Math.random()*200));
@@ -13,6 +14,9 @@ $(document).ready(() => {
 				$('#cr-' + cls + '-' + type).html(calculatePrice(dist, cls, type) + " Kč");
 			});
 		}
+		ticketTypes.forEach((type) => {
+			$('#cr-d-' + type).html(getSpecificFare(calculatePrice(dist, 2, type), 25) + " Kč");
+		});
 		$('#calc-results').slideDown();
 	});
 	$('#generate-table').on('click', function() {
@@ -96,6 +100,14 @@ function calculatePrice(dist, cls = 2, type = 'single', year = false) {
 	return fare;
 }
 
+function getSpecificFare(fullPrice, fare) {
+	var price = Math.round(fullPrice * fare / 100);
+	while (price > fullPrice * fare / 100) {
+		price--;
+	}
+	return price;
+}
+
 function generatePricelist(cls = 2, fare = 100, maxkm = 1000, year = false) {
 	//Ošetření nepřípustné kombinace třídy a tarifu
 	if (cls == 1 && fare != 100) {
@@ -117,7 +129,8 @@ function generatePricelist(cls = 2, fare = 100, maxkm = 1000, year = false) {
 		currentRow.append($('<td></td>').text(i));
 		ticketTypes.forEach((type) => {
 			//Zaokrouhlení finální ceny po aplikaci slevy
-			var price = Math.round(calculatePrice(i, cls, type, year) * fare / 100);
+			var fullPrice = calculatePrice(i, cls, type, year);
+			var price = getSpecificFare(fullPrice, fare);
 			currentRow.append($('<td></td>').text(price));
 		});
 		genTable.append(currentRow);
