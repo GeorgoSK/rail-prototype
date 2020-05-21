@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="calculator.css" />
     <script src="jquery.js"></script>
+    <script src="ui.js"></script>
     <script src="calculate.js"></script>
 </head>
 
@@ -16,13 +17,25 @@
         <input type="radio" name="tabs" id="tabs-table" value="tab-table"><label for="tabs-table">Cenová tabulka</label>
         <input type="radio" name="tabs" id="tabs-passes" value="tab-passes"><label for="tabs-passes">Síťové jízdenky</label>
     </nav>
+    <p>Aktuální ceníkový rok je <time id="currentPriceYear"></time></p>
     <section id="tab-calc">
-    <h1>Kalkulačka</h1>
+    <h1>Kalkulačka podle tarifní vzdálenosti</h1>
     <form id="sjt-calc">
         <input type="number" id="sjt-km" placeholder="km" size="3">
+        <select id="calcPriceYear" class="yearSelect">
+            <option value="2018">2017/2018</option>
+            <option value="2019">2018/2019</option>
+            <option value="2020">2019/2020</option>
+            <option value="2021">2020/2021</option>
+        </select>
         <button type="button" id="calculate">Vypočítat cenu</button>
     </form>
     <table id="calc-results" class="fares-results">
+        <tr class="fare-headers">
+            <th></th>
+            <th scope="col" colspan="2">Jednotlivá jízda</th>
+            <th scope="col" colspan="3">Traťová jízdenka</th>
+        </tr>
         <tr>
         <th scope="row">2. třída</th>
         <td>Jednosměrná <output id="cr-2-single"></output></td>
@@ -40,7 +53,7 @@
         <td>90denní <output id="cr-1-quarter"></output></td>
         </tr>
         <tr>
-        <th scope="row">Zlevněné</th>
+        <th scope="row">Zlevněná<br>2. třída</th>
         <td>Jednosměrná <output id="cr-d-single"></output></td>
         <td>Zpáteční <output id="cr-d-return"></output></td>
         <td>Týdenní <output id="cr-d-week"></output></td>
@@ -61,10 +74,10 @@
             </select>
             <input type="radio" id="gen-class-1" name="gen-class" value="1"><label for="gen-class-1">1. třída</label>
             <input type="radio" checked id="gen-class-2" name="gen-class" value="2"><label for="gen-class-2">2. třída</label>
-            <select id="priceYear">
+            <select id="priceYear" class="yearSelect">
                 <option value="2018">2017/2018</option>
                 <option value="2019">2018/2019</option>
-                <option value="2020" selected>2019/2020</option>
+                <option value="2020">2019/2020</option>
                 <option value="2021">2020/2021</option>
             </select>
             <button type="button" id="generate-table">Vygenerovat ceník</button>
@@ -76,10 +89,10 @@
     <section id="tab-passes">
         <h1>Síťové jízdenky</h1>
         <form id="sjt-calc">
-            <select id="passYear">
+            <select id="passYear" class="yearSelect">
                 <option value="2018">2017/2018</option>
                 <option value="2019">2018/2019</option>
-                <option value="2020" selected>2019/2020</option>
+                <option value="2020">2019/2020</option>
                 <option value="2021">2020/2021</option>
             </select>
             <button type="button" id="get-passes">Zobrazit ceny</button>

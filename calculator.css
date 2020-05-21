@@ -51,6 +51,9 @@ button {
 #table-generate-form select {
   margin: 0 1em 0 0;
 }
+.fare-headers th:not(:empty) {
+  border-bottom: 2px solid #4d4d21;
+}
 .fares-results {
   margin-top: 1em;
   font-size: 1rem;
@@ -62,7 +65,7 @@ button {
   font-size: 1.5em;
   display: block;
   padding: 0.5em 1em;
-  border: 1px solid #4d4d21;
+  border: 1px solid #abac18;
 }
 #fareTable {
   margin: 1em 0;
