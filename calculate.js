@@ -55,7 +55,7 @@ function inflate(fare, year) {
 			break;
 		}
 	}
-	return Math.round(fare);
+	return fare;
 }
 
 /**  
