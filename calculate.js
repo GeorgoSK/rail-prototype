@@ -14,7 +14,7 @@ const prisc = {
 	2019: 2.5,
 	2020: 2.1,
 	2021: 2.8
-	// Nutno doplnit podle PRISC za prosinec 2020 pro ceníkový rok 2022 atd.
+	// TO-DO: Nutno doplnit podle PRISC za prosinec 2020 pro ceníkový rok 2022 atd.
 }
 
 /**  
@@ -30,7 +30,7 @@ function getCalendarStart(year) {
 	return date;
 }
 
-// Cena jízdenky je valorizována podle toho, v jakém ceníkovém roku byla prodána
+// Cena jízdenky je valorizována podle toho, v jakém ceníkovém roce byla prodána
 /**  
  * Funkce pro inflační valorizaci
  * @param	(float)		fare	Základní cena jízdenky v úrovni ceníkového roku 2018
@@ -76,7 +76,7 @@ function calculatePrice(dist, cls = 2, type = 'single', year = false) {
 	var kmValue = base * dist + fee;
 	
 	//U zpáteční jízdenky se zdvojí cena a aplikuje 5% sleva
-	var fare = (type == 'return') ? 2 * (kmValue) * 0.95 : kmValue;
+	var fare = (type == 'return') ? 2 * kmValue * 0.95 : kmValue;
 
 	//Valorizace ceny podle ceníkového roku a zaokrouhlení
 	fare = Math.round(inflate(fare, year));
@@ -97,6 +97,7 @@ function calculatePrice(dist, cls = 2, type = 'single', year = false) {
 	//Násobení koeficientem pro 1. třídu, koeficient odlišný pro jednotlivé a traťové jízdenky
 	if (cls == 1) {
 		fare = (type == 'single' || type == 'return') ? fare * 1.3 : fare * 1.2;
+		// Získaná cena 1. třídy se opět zaokrouhluje (podruhé)
 		fare = Math.round(fare);
 	}
 	
@@ -110,13 +111,13 @@ function calculatePrice(dist, cls = 2, type = 'single', year = false) {
  * @returns (float)		Cena zlevněné jízdenky
 */
 function getSpecificFare(fullPrice, fareLevel) {
-	var price = Math.round(fullPrice * fareLevel / 100);
+	var fare = Math.round(fullPrice * fareLevel / 100);
 	// Cena zlevněné jízdenky nesmí přesáhnout % určená slevovou kategorií
 	// Příklad: pro obyčejné jízdné 22 Kč by po aplikaci slevy (22 * 0.25) byla cena 5,50 Kč -> zaokrouhleně 6 Kč, což je víc než 25 % z 22 Kč. Proto dodatečná korekce.
-	while (price > fullPrice * fareLevel / 100) {
-		price--;
+	while (fare > fullPrice * fareLevel / 100) {
+		fare--;
 	}
-	return price;
+	return fare;
 }
 
 /**  
@@ -144,7 +145,7 @@ function getPassPrice(type, cls =  2, year = false) {
 		week: 390
 	}
 	if (passes[type]) {
-		// Cena se počítá z fixní základu, jen se valorizuje
+		// Cena se počítá z fixního základu, jen se valorizuje
 		var fare = Math.round(inflate(passes[type], year));
 		// Pro 1. třídu se aplikuje fixní příplatek bez valorizace
 		return (cls == 1) ? fare + supplements[type] : fare;
